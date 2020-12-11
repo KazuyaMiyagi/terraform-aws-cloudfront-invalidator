@@ -1,0 +1,27 @@
+version: 0.2
+
+##
+# These environment variables are injected from codebuild or codepipeline settings.
+# - DISTRIBUTION_ID
+# - INVALIDATION_PATH
+phases:
+  pre_build:
+    commands:
+      - aws --version
+      - jq --version
+      - echo "DISTRIBUTION_ID='${DISTRIBUTION_ID}'"
+      - echo "INVALIDATION_PATH='${INVALIDATION_PATH}'"
+
+  build:
+    commands:
+      - aws cloudfront create-invalidation --distribution-id "${DISTRIBUTION_ID}" --path "${INVALIDATION_PATH}" | tee response
+      - INVALIDATION_ID=$(jq -r ".Invalidation.Id" < response)
+      - |
+        until [ "${STATUS:=InProgress"}" = "Completed" ]
+        do
+          echo "Current status: '${STATUS}' wait 10 seconds."
+          sleep 10
+          aws cloudfront get-invalidation --distribution-id "${DISTRIBUTION_ID}" --id "${INVALIDATION_ID}" | tee response
+          STATUS=$(jq -r ".Invalidation.Status" < response)
+        done
+      - echo "Current status: '${STATUS}'"
