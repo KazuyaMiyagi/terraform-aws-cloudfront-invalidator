@@ -24,4 +24,4 @@ phases:
           aws cloudfront get-invalidation --distribution-id "${DISTRIBUTION_ID}" --id "${INVALIDATION_ID}" | tee response
           STATUS=$(jq -r ".Invalidation.Status" < response)
         done
-      - echo "Current status: '${STATUS}'"
+        echo "Current status: '${STATUS}'"
