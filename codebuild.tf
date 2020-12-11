@@ -30,7 +30,7 @@ resource "aws_codebuild_project" "invalidator" {
     environment_variable {
       name  = "INVALIDATION_PATH"
       type  = "PLAINTEXT"
-      value = ""
+      value = "/*"
     }
   }
 
