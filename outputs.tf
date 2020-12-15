@@ -5,3 +5,7 @@ data "aws_arn" "codebuild_project" {
 output "project_name" {
   value = trimprefix(data.aws_arn.codebuild_project.resource, "project/")
 }
+
+output "arn" {
+  value = aws_codebuild_project.invalidator.arn
+}

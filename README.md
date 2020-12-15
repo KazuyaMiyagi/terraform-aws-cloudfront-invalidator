@@ -48,6 +48,8 @@ Outputs
 | Name          | Description            |
 |---------------|------------------------|
 | project\_name | CodeBuild project name |
+| arn           | CodeBuild project arn  |
+
 
 
 License
