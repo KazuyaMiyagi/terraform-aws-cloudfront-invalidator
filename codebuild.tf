@@ -1,5 +1,5 @@
 resource "aws_codebuild_project" "invalidator" {
-  name          = "cloudfront-invalidator"
+  name          = var.project_name
   description   = "Create CloudFront Invalidation project."
   build_timeout = 60
   service_role  = aws_iam_role.invalidator.arn

@@ -1,6 +1,6 @@
 resource "aws_iam_role" "invalidator" {
   path               = "/service-role/"
-  name               = "codebuild-invalidator-project-service-role"
+  name   = "${var.project_name}-CodeBuild"
   assume_role_policy = data.aws_iam_policy_document.invalidator_assume_role.json
 }
 
@@ -20,7 +20,7 @@ resource "aws_iam_role_policy_attachment" "invalidator_attached_policy" {
 }
 
 resource "aws_iam_policy" "invalidator" {
-  name   = "CodeBuildPolicy-invalidator-project"
+  name   = "${var.project_name}-CodeBuild-Policy"
   policy = data.aws_iam_policy_document.invalidator.json
 }
 

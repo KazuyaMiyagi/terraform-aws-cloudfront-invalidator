@@ -1,7 +1,7 @@
-variable "invalidator_log_group_name" {
+variable "project_name" {
   type        = string
-  description = "CloudWatch Logs log group name"
-  default     = "/aws/codebuild/invalidator"
+  description = "Project name"
+  default     = "cloudfront-invalidator"
 }
 
 variable "codepipeline_source_artifact_bucket_arn" {
